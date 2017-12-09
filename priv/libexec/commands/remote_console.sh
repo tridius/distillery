@@ -22,7 +22,8 @@ if [ ! -z "$USE_ERL_SHELL" ]; then
         -hidden \
         -boot start_clean -boot_var ERTS_LIB_DIR "$ERTS_LIB_DIR" \
         -kernel net_ticktime "$TICKTIME" \
-        "$NAME_TYPE" "$id" -remsh "$NAME" -setcookie "$COOKIE"
+        "$NAME_TYPE" "$id" -remsh "$NAME" -setcookie "$COOKIE" \
+        ${ERL_OPTS} \
 else
     __code_paths=$(_get_code_paths)
     exec "$BINDIR/erl" \
@@ -32,5 +33,6 @@ else
         -boot start_clean -boot_var ERTS_LIB_DIR "$ERTS_LIB_DIR" \
         -kernel net_ticktime "$TICKTIME" \
         -user Elixir.IEx.CLI "$NAME_TYPE" "$id" -setcookie "$COOKIE" \
+        ${ERL_OPTS} \
         -extra --no-halt +iex -"$NAME_TYPE" "$id" --cookie "$COOKIE" --remsh "$NAME"
 fi
