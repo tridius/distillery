@@ -61,6 +61,16 @@ for /f "usebackq tokens=1-2" %%I in (`findstr /b "\-name \-sname" "%vm_args%"`) 
   set node_name=%%J
 )
 
+:: (Optional) Extract Windows Internal name from vm.args
+for /f "usebackq tokens=1-2" %%I in (`findstr /b \-internalservicename "%vm_args%"`) do (
+  set internal_service_name=%%J
+)
+
+:: (Optional) Extract Windows service description from vm.args
+for /f "usebackq tokens=1-2" %%I in (`findstr /b \-servicedescription "%vm_args%"`) do (
+  set service_description=%%J
+)
+
 :: Extract cookie from vm.args
 for /f "usebackq tokens=1-2" %%I in (`findstr /b \-setcookie "%vm_args%"`) do (
   set cookie=%%J
